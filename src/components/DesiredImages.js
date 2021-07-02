@@ -7,16 +7,20 @@ height: 100%;
 object-fit: cover;
 `;
 
-const DesiredImages = ({url, alt, key, owner}) => {
+const DesiredImages = ({url, alt, imageKey, owner}) => {
   return (
   <div className="image">
-  <Img className="image__img" src={url} alt={alt} key={key} />
-  <div className="image__overlay image__overlay--blur">
-  <div className="image__title">{alt}</div>
-  <p className="image__description">
+  <picture>
+  <source media="(min-width:650px)" srcSet={url} />
+  <source media="(min-width:465px)" srcSet={url} />
+  <Img className="image-img" src={url} alt={alt} imageKey={imageKey} />
+  <div className="image-overlay image-overlay-blur">
+  <div className="image-title">{alt}</div>
+  <p className="image-description">
   {owner}
   </p>
   </div>
+  </picture>
   </div>
   )
 };

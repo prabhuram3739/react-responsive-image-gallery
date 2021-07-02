@@ -11,7 +11,7 @@ const DesiredImages = lazy(() => import('./components/DesiredImages'));
 //style to showcase the use of styled components, can be done in a seperate file as well
 
 const WrapperImage = styled.section`
-max-width: 70rem;
+max-width: 65rem;
 margin: 4rem auto;
 display: grid;
 grid-gap: 1em;
@@ -80,8 +80,8 @@ if(loading) {
       let imageUrl = FLICKER_API.IMAGE_ROOT_URL + image.server + '/' + image.id + '_' + image.secret + '_w.jpg';
 
       //Loading the images based on the requirement - lazy loading
-      return <Suspense fallback={<img src={imageUrl} alt='Avatar' style={{ width: '50%' }} />}>
-     <DesiredImages url={imageUrl} alt={image.title} key={image.id} owner={image.owner} />
+      return <Suspense key={image.id} fallback={<img src={imageUrl} alt='Avatar' style={{ width: '50%' }} />}>
+     <DesiredImages url={imageUrl} alt={image.title} imageKey={image.id} owner={image.owner} />
     </Suspense>
     
     })}
@@ -89,7 +89,7 @@ if(loading) {
     <Loader />
     <p>Page Number: {pageNumber}</p>
     <p>Total Images Loaded: {images.length}</p>
-    <button className="loadMore" onClick={loadMore} ref={pageEnd}>Load More</button>
+    <button className="load-more" onClick={loadMore} ref={pageEnd}>Load More</button>
     
     </div>
   );
