@@ -1,10 +1,12 @@
 
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef, lazy, Suspense} from 'react';
 import {Heading} from './components/Heading';
 import {Loader} from './components/Loader';
-import {DesiredImages} from './components/DesiredImages';
+// import {DesiredImages} from './components/DesiredImages';
 import styled from 'styled-components';
 import {FLICKER_API} from './API.constants';
+//Implemented the lazy loading of the image component
+const DesiredImages = lazy(() => import('./components/DesiredImages'));
 
 //style to showcase the use of styled components, can be done in a seperate file as well
 
@@ -54,15 +56,16 @@ const pageEnd = useRef();
   useEffect(() => {
 if(loading) {
   const observer = new IntersectionObserver(entries => {
-if(entries[0].isIntersecting) {
-  // num++; //To restrict the infinite loading after a certain page number
-  loadMore();
-  //To restrict the infinite loading after a certain page number
-  /* if(num >=5) {
-    observer.unobserve(pageEnd.current);
-  } */
-}
-
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        // num++; //To restrict the infinite loading after a certain page number
+        loadMore();
+        //To restrict the infinite loading after a certain page number
+        /* if(num >=5) {
+          observer.unobserve(pageEnd.current);
+        } */
+      }
+    });
   }, {threshold: 1});
   observer.observe(pageEnd.current)
 }
@@ -72,15 +75,18 @@ if(entries[0].isIntersecting) {
   return (
     <div className="App">
     <Heading />
-    
     <WrapperImage>
     {images.map(image => {
       let imageUrl = FLICKER_API.IMAGE_ROOT_URL + image.server + '/' + image.id + '_' + image.secret + '_w.jpg';
-      return <DesiredImages url={imageUrl} alt={image.title} key={image.id} />
+
+      //Loading the images based on the requirement - lazy loading
+      return <Suspense fallback={<img src={imageUrl} alt='Avatar' style={{ width: '50%' }} />}>
+     <DesiredImages url={imageUrl} alt={image.title} key={image.id} />
+    </Suspense>
+    
     })}
     </WrapperImage>
     <Loader />
-    
     <p>Page Number: {pageNumber}</p>
     <p>Total Images Loaded: {images.length}</p>
     <button className="loadMore" onClick={loadMore} ref={pageEnd}>Load More</button>
