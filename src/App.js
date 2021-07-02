@@ -81,7 +81,7 @@ if(loading) {
 
       //Loading the images based on the requirement - lazy loading
       return <Suspense fallback={<img src={imageUrl} alt='Avatar' style={{ width: '50%' }} />}>
-     <DesiredImages url={imageUrl} alt={image.title} key={image.id} />
+     <DesiredImages url={imageUrl} alt={image.title} key={image.id} owner={image.owner} />
     </Suspense>
     
     })}
