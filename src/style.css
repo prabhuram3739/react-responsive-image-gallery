@@ -1,0 +1,142 @@
+/******\ <coding-tips.com> 2018 \******/
+
+body, html {
+	position:relative;
+	padding:0;
+	margin:0;
+	font-size:18;
+	font-family:Arial, Helvetica, sans-serif;
+	background:#444;
+}
+
+a:link,
+a:hover,
+a:active,
+a:visited {
+	color:#00addc;
+}
+
+img {
+	border:0;
+}
+
+header {
+	position:relative;
+	padding:0;
+	margin:0;
+	width:100%;
+	height:70px;
+	background:#ededed;
+	padding:20px 0;
+}
+
+.logo-outer {
+	position:relative;
+	float:left;
+	left:0;
+	width:60%;
+	max-width:180px;
+	height:70px;
+}
+
+.logo {
+	position:relative;
+	width:100%;
+}
+
+h1 {
+	margin-top:40px;
+	color:#a3a9ac;
+}
+
+#main {
+	position:relative;
+	width:100%;
+	max-width:1200px;
+	right:0;
+	left:0;
+	margin:0 auto auto auto;
+	background:white;
+	min-height:100%;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+}
+
+.margin {
+	margin:0 40px;
+}
+
+#gallery {
+	position:relative;
+	margin:40px 0;
+}
+
+.img-container {
+	width:31.33%;
+	padding:1%;
+	float:left;
+	left:0;
+}
+
+.img {
+	padding:0;
+	height:0;
+	padding-bottom:100%;
+	overflow:hidden;
+	box-shadow:0 .8px .8px #ccc;
+}
+
+.img img {
+	width:195%;
+	height:auto;
+	transform: translate(-25%,-7%) ;
+	-moz-transform: translate(-25%,-7%) ;
+	-webkit-transform: translate(-25%,-7%) ;
+	-ms-transform: translate(-25%,-7%);
+}
+
+.clearfix {
+	clear:both;
+}
+
+footer {
+	font-size:.85em;
+	width:100%;
+	padding:20px 0;
+	margin:50px 0 0 0;
+	background:#333;
+	color:#fff;
+}
+
+.ct a:link,
+.ct a:active,
+.ct a:hover,
+.ct a:visited {
+	color:#444;
+	text-decoration:none;
+}
+
+.ad {
+	margin:80px auto 80px 0;
+	position:relative;
+	width:auto;
+	max-width:748px;
+}
+
+.ad img {
+	width:100%;
+	max-width:748px;
+}
+
+@media only screen and (max-width: 360px) {
+.img-container {
+	width:98%;
+	padding:2% 1%;
+}	
+}
+
+@media only screen and (min-width: 360px)and (max-width: 900px) {
+.img-container {
+	width:48%;
+	padding:1%;
+}	
+}
