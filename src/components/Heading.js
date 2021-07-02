@@ -15,7 +15,7 @@ margin-bottom: 1rem;
 export const Heading = () => {
   return (
     <Header>
-      <H1>Heading</H1>
+      <H1>Infinite Scrolling Image Gallery</H1>
     </Header>
   )
 }

@@ -1,0 +1,24 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.App {
+    width: 100%;
+    min-height: 100vh;
+    position:absolute;
+    text-align: center;
+    color: white;
+    background: #1c273a;
+}
+
+h1 {
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: white;
+    margin: 20px 0;
+}
+
+.loadMore {
+    cursor: pointer;
+}

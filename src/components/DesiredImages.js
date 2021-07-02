@@ -7,6 +7,6 @@ height: 100%;
 object-fit: cover;
 `;
 
-export const Desired = ({url, alt, key}) => {
+export const DesiredImages = ({url, alt, key}) => {
   return (<Img src={url} alt={alt} key={key} />)
 }
