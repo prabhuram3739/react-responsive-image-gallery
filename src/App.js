@@ -32,7 +32,7 @@ function App() {
   // Function to fetch the images from the Flicker API
   const fetchImages = async(pageNumber) => {
     //Flicker API url construction to fetch the images
-    const apiRoot = FLICKER_API.GET_RECENT_DATA + '&api_key=' + FLICKER_API.API_KEY + '&page=' + pageNumber + '&per_page=10&format=json&nojsoncallback=1';
+    const apiRoot = FLICKER_API.ROOT_URL + FLICKER_API.GET_RECENT_DATA + '&api_key=' + FLICKER_API.API_KEY + '&page=' + pageNumber + '&per_page=10&format=json&nojsoncallback=1';
     // GET request using fetch inside useEffect React hook
     console.log()
     const res = await fetch(apiRoot);
@@ -81,7 +81,7 @@ if(loading) {
 
       //Loading the images based on the requirement - lazy loading
       return <Suspense key={image.id} fallback={<img src={imageUrl} alt='Avatar' style={{ width: '50%' }} />}>
-     <DesiredImages url={imageUrl} alt={image.title} imageKey={image.id} owner={image.owner} />
+     <DesiredImages url={imageUrl} alt={image.title} imageKey={image.id} owner={image.owner} photo={image} />
     </Suspense>
     
     })}
