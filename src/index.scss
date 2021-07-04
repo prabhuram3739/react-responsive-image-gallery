@@ -75,14 +75,20 @@ h1 {
 
 .add-favourite {
 	margin-top: 1rem;
+	width:200px;
 	background-color: transparent;
 	border-radius: 10px;
 	border-color: #fff;
 	color: #fff;
-	height: 5vh;
+	height: 7vh;
 	cursor: pointer;
 }
 
 .detailsInfo {
 	color: #000;
+}
+
+.icon-align-class {
+	margin-left: 5px;
+	margin-top: 5px;
 }

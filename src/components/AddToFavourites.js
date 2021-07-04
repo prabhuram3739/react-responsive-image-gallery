@@ -4,13 +4,13 @@ const AddFavourite = () => {
 	return (
 		<>
         <button className="add-favourite">
-			<span>Add to Favourites</span>
+			<span>Favourites</span>
 			<svg
 				width='1em'
 				height='1em'
 				viewBox='0 0 16 16'
-				className='bi bi-heart-fill'
-				fill='red'
+				className='bi bi-heart-fill icon-align-class'
+				fill= 'white'
 				xmlns='http://www.w3.org/2000/svg'
 			>
 				<path
