@@ -5,8 +5,11 @@ import {Loader} from './components/Loader';
 // import {DesiredImages} from './components/DesiredImages';
 import styled from 'styled-components';
 import {FLICKER_API} from './API.constants';
+import AddFavourites from './components/AddToFavourites';
+import RemoveFavourites from './components/RemoveFromFavourites';
 //Implemented the lazy loading of the image component
 const DesiredImages = lazy(() => import('./components/DesiredImages'));
+
 
 //style to showcase the use of styled components, can be done in a seperate file as well
 
@@ -28,6 +31,7 @@ function App() {
   const [images, setImages] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [favourites, setFavourites] = useState(JSON.parse(localStorage.getItem('react-image-favourites')).length > 0 ? JSON.parse(localStorage.getItem('react-image-favourites')) : []); //
 
   // Function to fetch the images from the Flicker API
   const fetchImages = async(pageNumber) => {
@@ -51,6 +55,7 @@ function App() {
   const loadMore = () => {
     setPageNumber(prevPageNumber => prevPageNumber + 1);
   }
+
 const pageEnd = useRef();
 // let num = 1;
   useEffect(() => {
@@ -72,23 +77,54 @@ if(loading) {
   // }, [loading, num]); //To restrict the infinite loading after a certain page number
 }, [loading]);
 
+const saveToLocalStorage = (items) => {
+  localStorage.setItem('react-image-favourites', JSON.stringify(items));
+};
+
+const addFavouriteImage = (img) => {
+  const newFavouriteList = [...favourites, img];
+  setFavourites(newFavouriteList);
+  saveToLocalStorage(newFavouriteList);
+};
+
+const removeFavouriteImage = (img) => {
+  const newFavouriteList = favourites.filter(
+    (favourite) => favourite.id !== img.id
+  );
+  setFavourites(newFavouriteList);
+  saveToLocalStorage(newFavouriteList);
+ 
+};
+
+const displayImages = (image, favouriteComponentName, handleFavouriteClickName) => {
+  let imageUrl = FLICKER_API.IMAGE_ROOT_URL + image.server + '/' + image.id + '_' + image.secret + '_w.jpg';
+    //Loading the images based on the requirement - lazy loading
+      return <Suspense key={image.id} fallback={<img src={imageUrl} alt='Avatar' style={{ width: '50%' }} />}>
+       <DesiredImages url={imageUrl} alt={image.title} imageKey={image.id} owner={image.owner} photo={image} handleFavouritesClick={handleFavouriteClickName} favouriteComponent={favouriteComponentName} />
+      </Suspense>
+}
+
   return (
     <div className="App">
     <Heading />
+    {favourites.length > 0 ? 
+    <>
+    <div className="images-container-heading">Favourite Images</div> 
+     <WrapperImage>
+      {favourites &&  favourites.length > 0 && favourites.map(image => {
+      return displayImages(image, RemoveFavourites, removeFavouriteImage);
+      })}
+    </WrapperImage></>
+    :  '' }
+    <h3 className="images-container-heading">Flicker Images</h3>
     <WrapperImage>
     {images.map(image => {
-      let imageUrl = FLICKER_API.IMAGE_ROOT_URL + image.server + '/' + image.id + '_' + image.secret + '_w.jpg';
-
-      //Loading the images based on the requirement - lazy loading
-      return <Suspense key={image.id} fallback={<img src={imageUrl} alt='Avatar' style={{ width: '50%' }} />}>
-     <DesiredImages url={imageUrl} alt={image.title} imageKey={image.id} owner={image.owner} photo={image} />
-    </Suspense>
-    
+    return displayImages(image, AddFavourites, addFavouriteImage);
     })}
     </WrapperImage>
     <Loader />
-    <p>Page Number: {pageNumber}</p>
-    <p>Total Images Loaded: {images.length}</p>
+    <p className="detailsInfo">Page Number: {pageNumber}</p>
+    <p className="detailsInfo">Total Images Loaded: {images.length}</p>
     <button className="load-more" onClick={loadMore} ref={pageEnd}>Load More</button>
     
     </div>

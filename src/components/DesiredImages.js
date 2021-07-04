@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const Img = styled.img`
@@ -7,25 +7,13 @@ height: 100%;
 object-fit: cover;
 `;
 
-const DesiredImages = ({url, alt, imageKey, owner, photo}) => {
-  const [favourites, setFavourites] = useState([]);
-  // Add favorite method adds the photos to the flicker api favorite list
-  const addFavourite = (props) => {
-  let tempArray = favourites;
-  let addTempArray = true;
-  tempArray.forEach((item, key) => {
-  if(item === props.imageKey) {
-    tempArray.splice(key, 1);
-    addTempArray = false;
-    }
-  });
-  if(addTempArray) {
-    tempArray.push(props.imageKey);
-  }
-  console.log("Add temp array status:", addTempArray);
-  console.log("Favourite List:", tempArray);
-  // setFavourites([...tempArray]);
-  };
+const DesiredImages = (props) => {
+  const url = props.url;
+  const alt = props.alt;
+  const imageKey = props.imageKey;
+  const owner = props.owner;
+  const photo = props.photo;
+  const FavouriteComponent = props.favouriteComponent;
   return (
   <div className="image">
   <picture>
@@ -37,11 +25,9 @@ const DesiredImages = ({url, alt, imageKey, owner, photo}) => {
   <p className="image-description">
   {owner}
   </p>
-  {favourites.includes(imageKey) ? (
-  <button className="add-favourite" onClick={addFavourite({photo, imageKey})}>Remove from Favourite</button>
-  ) : (
-  <button className="add-favourite" onClick={addFavourite({photo, imageKey})}>Add to Favourite</button>
-  )}
+  <span onClick={() => props.handleFavouritesClick(photo)}>
+  <FavouriteComponent />
+  </span>
   </div>
   </picture>
   </div>
